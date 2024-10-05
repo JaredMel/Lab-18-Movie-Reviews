@@ -32,7 +32,7 @@ int main() {
     Node *head = nullptr;
     int count = 0;
     int choice1;
-    string choice2 = "y";
+    int choice2 = 1;
 
     cout << "Which linked list methode should we use?" << endl;
     cout << "   [1] New nodes are added at the head of the linked list" << endl;
@@ -43,21 +43,21 @@ int main() {
     switch (choice1)
     {
     case 1:
-        while (choice2.compare("y") == 0)
+        cin.ignore();
+        while (choice2 == 1)
         {
             head = addNodeToHead(head);
-            cout << "Enter another review? Y/N: ";
-            getline(cin, choice2);
-            cin.ignore();
+            cout << "Enter another review? Yes=1/No=2: ";
+            cin >> choice2;
         }
         break;
     case 2:
-        while (choice2.compare("y") == 0)
+        cin.ignore();
+        while (choice2 == 1)
         {
             head = addNodeToTail(head);
-            cout << "Enter another review? Y/N: ";
-            getline(cin, choice2);
-            cin.ignore();
+            cout << "Enter another review? Yes=1/No=2: ";
+            cin >> choice2;
         }
         break;
     default:
@@ -72,13 +72,13 @@ void output(Node * hd) {
         cout << "Empty list.\n";
         return;
     }
-    int count = 0;
+    int count = 1;
     Node * current = hd;
     double sum = 0.0;
     double average = 0.0;
     cout << "Outputting all reviews:" << endl;
     while (current) {
-        cout << "   > Review #" << count++ << ": " << current->rating << ": " << current->comments << endl;
+        cout << "   > Review #" << count << ": " << current->rating << ": " << current->comments << endl;
         count++;
         sum += current->rating;
         current = current->next;
@@ -95,7 +95,7 @@ Node* addNodeToHead(Node * &hd)
     cout << "Enter review rating 0-5: ";
     cin >> r;
     cout << "Enter review comments: ";
-    getline(cin, c);
+    cin >> c;
     cin.ignore();
 
     Node* new_node = new Node(r, c);
@@ -112,7 +112,7 @@ Node* addNodeToTail(Node * &hd)
     cout << "Enter review rating 0-5: ";
     cin >> r;
     cout << "Enter review comments: ";
-    getline(cin, c);
+    cin >> c;
     cin.ignore();
 
     Node* new_node = new Node(r, c);
