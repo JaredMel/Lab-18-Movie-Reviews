@@ -12,14 +12,21 @@ using namespace std;
 const int SIZE = 7;
 
 struct Node {
-    int rating;
+    double rating;
     string comments;
     Node *next;
+
+    Node(double new_rating, string new_comments)
+    {
+        rating = new_rating;
+        comments = new_comments;
+        next = nullptr;
+    }
 };
 
 void output(Node *);
-void addNodeToHead(Node *&, Node *&);
-void addNodeToTail(Node *&, Node *&);
+Node* addNodeToHead(Node *&);
+Node* addNodeToTail(Node *&);
 
 int main() {
     Node *head = nullptr;
@@ -35,10 +42,10 @@ int main() {
     switch (choice)
     {
     case 1:
-        addNodeToHead();
+        addNodeToHead(head);
         break;
     case 2:
-        addNodeToTail();
+        addNodeToTail(head);
         break;
     default:
         break;
@@ -67,7 +74,7 @@ void output(Node * hd) {
     cout << "   > Average: " << average << endl;
 }
 
-void addNodeToHead(Node * &hd, Node * &nv)
+Node* addNodeToHead(Node * &hd)
 {
     double r;
     string c;
@@ -81,27 +88,17 @@ void addNodeToHead(Node * &hd, Node * &nv)
         getline(cin, c);
         cin.ignore();
 
-        // adds node at head
-        if (!hd) { // if this is the first node, it's the new head
-            hd = nv;
-            nv->next = nullptr;
-            nv->rating = r;
-            nv->comments = c;
-        }
-        else { // its a second or subsequent node; place at the head
-            nv->next = hd;
-            nv->rating = r;
-            nv->comments = c;
-            hd = nv;
-        }
+        Node* new_node = new Node(r, c);
+        new_node->next = hd;
 
         cout << "Enter another review? Y/N: ";
         getline(cin, choice);
         cin.ignore();
     }
+    return new_node
 }
 
-void addNodeToTail(Node * &hd, Node * &nv)
+Node* addNodeToTail(Node * &hd)
 {
     double r;
     string c;
