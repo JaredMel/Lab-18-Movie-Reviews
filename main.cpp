@@ -94,5 +94,49 @@ void addNodeToHead(Node * &hd, Node * &nv)
             nv->comments = c;
             hd = nv;
         }
+
+        cout << "Enter another review? Y/N: ";
+        getline(cin, choice);
+        cin.ignore();
+    }
+}
+
+void addNodeToTail(Node * &hd, Node * &nv)
+{
+    double r;
+    string c;
+    string choice = "y";
+    Node* last = hd;
+
+    while (choice.compare("y") == 0)
+    {
+        cout << "Enter review rating 0-5: ";
+        cin >> r;
+        cout << "Enter review comments: ";
+        getline(cin, c);
+        cin.ignore();
+
+        // adds node at head
+        if (!hd) { // if this is the first node, it's the new head
+            hd = nv;
+            nv->next = nullptr;
+            nv->rating = r;
+            nv->comments = c;
+        }
+        else { // its a second or subsequent node; place at the head
+            while (last->next != nullptr)
+            {
+                /* code */
+            }
+            
+            nv->next = hd;
+            nv->rating = r;
+            nv->comments = c;
+            hd = nv;
+        }
+
+        cout << "Enter another review? Y/N: ";
+        getline(cin, choice);
+        cin.ignore();
     }
 }
