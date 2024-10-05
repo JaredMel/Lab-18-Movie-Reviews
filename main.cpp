@@ -31,21 +31,34 @@ Node* addNodeToTail(Node *&);
 int main() {
     Node *head = nullptr;
     int count = 0;
-    int choice;
+    int choice1;
+    string choice2 = "y";
 
     cout << "Which linked list methode should we use?" << endl;
     cout << "   [1] New nodes are added at the head of the linked list" << endl;
     cout << "   [2] New nodes are added at the tail of the linked list" << endl;
     cout << "Choice: ";
-    cin >> choice;
+    cin >> choice1;
 
-    switch (choice)
+    switch (choice1)
     {
     case 1:
-        addNodeToHead(head);
+        while (choice2.compare("y") == 0)
+        {
+            head = addNodeToHead(head);
+            cout << "Enter another review? Y/N: ";
+            getline(cin, choice2);
+            cin.ignore();
+        }
         break;
     case 2:
-        addNodeToTail(head);
+        while (choice2.compare("y") == 0)
+        {
+            head = addNodeToTail(head);
+            cout << "Enter another review? Y/N: ";
+            getline(cin, choice2);
+            cin.ignore();
+        }
         break;
     default:
         break;
@@ -78,62 +91,41 @@ Node* addNodeToHead(Node * &hd)
 {
     double r;
     string c;
-    string choice = "y";
 
-    while (choice.compare("y") == 0)
-    {
-        cout << "Enter review rating 0-5: ";
-        cin >> r;
-        cout << "Enter review comments: ";
-        getline(cin, c);
-        cin.ignore();
+    cout << "Enter review rating 0-5: ";
+    cin >> r;
+    cout << "Enter review comments: ";
+    getline(cin, c);
+    cin.ignore();
 
-        Node* new_node = new Node(r, c);
-        new_node->next = hd;
+    Node* new_node = new Node(r, c);
+    new_node->next = hd;
 
-        cout << "Enter another review? Y/N: ";
-        getline(cin, choice);
-        cin.ignore();
-    }
-    return new_node
+    return new_node;
 }
 
 Node* addNodeToTail(Node * &hd)
 {
     double r;
     string c;
-    string choice = "y";
-    Node* last = hd;
 
-    while (choice.compare("y") == 0)
+    cout << "Enter review rating 0-5: ";
+    cin >> r;
+    cout << "Enter review comments: ";
+    getline(cin, c);
+    cin.ignore();
+
+    Node* new_node = new Node(r, c);
+    if (hd == nullptr)
     {
-        cout << "Enter review rating 0-5: ";
-        cin >> r;
-        cout << "Enter review comments: ";
-        getline(cin, c);
-        cin.ignore();
-
-        // adds node at head
-        if (!hd) { // if this is the first node, it's the new head
-            hd = nv;
-            nv->next = nullptr;
-            nv->rating = r;
-            nv->comments = c;
-        }
-        else { // its a second or subsequent node; place at the head
-            while (last->next != nullptr)
-            {
-                /* code */
-            }
-            
-            nv->next = hd;
-            nv->rating = r;
-            nv->comments = c;
-            hd = nv;
-        }
-
-        cout << "Enter another review? Y/N: ";
-        getline(cin, choice);
-        cin.ignore();
+        return new_node;
     }
+    Node * last = hd;
+    while (last->next != nullptr)
+    {
+        last = last->next;
+    }
+    last->next = new_node;
+
+    return hd;
 }
