@@ -18,8 +18,8 @@ struct Node {
 };
 
 void output(Node *);
-void addNodeToHead(Node *&, Node *&, int);
-void addNodeToTail(Node *&, Node *&, int);
+void addNodeToHead(Node *&, Node *&);
+void addNodeToTail(Node *&, Node *&);
 
 int main() {
     Node *head = nullptr;
@@ -67,24 +67,32 @@ void output(Node * hd) {
     cout << "   > Average: " << average << endl;
 }
 
-void addNodeToHead(Node * &hd, Node * &nv, int val)
+void addNodeToHead(Node * &hd, Node * &nv)
 {
     double r;
     string c;
     string choice = "y";
 
-    cout << "Enter review rating 0-5: ";
-    cin >> r;
+    while (choice.compare("y") == 0)
+    {
+        cout << "Enter review rating 0-5: ";
+        cin >> r;
+        cout << "Enter review comments: ";
+        getline(cin, c);
+        cin.ignore();
 
-    // adds node at head
+        // adds node at head
         if (!hd) { // if this is the first node, it's the new head
             hd = nv;
             nv->next = nullptr;
-            nv->value = val;
+            nv->rating = r;
+            nv->comments = c;
         }
         else { // its a second or subsequent node; place at the head
             nv->next = hd;
-            nv->value = val;
+            nv->rating = r;
+            nv->comments = c;
             hd = nv;
         }
+    }
 }
