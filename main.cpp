@@ -52,18 +52,30 @@ void output(Node * hd) {
         cout << "Empty list.\n";
         return;
     }
-    int count = 1;
+    int count = 0;
     Node * current = hd;
-
+    double sum = 0.0;
+    double average = 0.0;
+    cout << "Outputting all reviews:" << endl;
     while (current) {
         cout << "   > Review #" << count++ << ": " << current->rating << ": " << current->comments << endl;
+        count++;
+        sum += current->rating;
         current = current->next;
     }
-    cout << endl;
+    average = sum/count;
+    cout << "   > Average: " << average << endl;
 }
 
 void addNodeToHead(Node * &hd, Node * &nv, int val)
 {
+    double r;
+    string c;
+    string choice = "y";
+
+    cout << "Enter review rating 0-5: ";
+    cin >> r;
+
     // adds node at head
         if (!hd) { // if this is the first node, it's the new head
             hd = nv;
